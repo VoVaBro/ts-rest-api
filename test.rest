@@ -1,0 +1,24 @@
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+    "username":"vova",
+    "email": "w@email.com",
+    "password": "password"
+}
+
+
+###
+POST http://localhost:3000/api/auth/signin
+Content-Type: application/json
+
+{
+    "email": "w@email.com",
+     "password": "password"
+}
+
+
+###
+GET  http://localhost:3000/api/auth/profile
+Content-Type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZTk5YTFlZmUzNDgzZTNjNGJlY2EwODciLCJpYXQiOjE1ODcxMzUzMjIsImV4cCI6MTU4NzE1NjkyMn0.wy9YZxd0GEvYzBRtkugP1o5AO9uwX__K2SvKfHKZTgM

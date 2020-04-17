@@ -1,28 +1,58 @@
+import {IncomingHttpHeaders} from 'http'
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
+import { config } from "../config";
 
 import jwt from "jsonwebtoken";
 
+//SignUp
 export const signup = async (req: Request, res: Response) => {
+  const user = await User.findOne({ email: req.body.email });
 
-console.log('1111', req.body)
+  if (user) return res.status(500).json({ msg: "user exist!" });
 
-res.send({msg: 'ok'})
-//   const user: IUser = new User({
-//     username: req.body.username,
-//     email: req.body.email,
-//     password: req.body.password,
-//   });
+  const newuser: IUser = new User({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+  });
 
-//   user.password = await user.encryptPassword(user.password);
-//   const savedUser = await user.save();
+  newuser.password = await newuser.encryptPassword(newuser.password);
+  const savedUser = await newuser.save();
 
-//   const token: string = jwt.sign({ id: savedUser.id }, "vvvvvv");
-//   res.header("auth-token", token).json(savedUser);
+  res.status(200).json({ msg: "user created", savedUser });
 };
 
-export const signin = (req: Request, res: Response) => {};
+// SignIn
+export const signin = async (req: Request, res: Response) => {
 
-export const profile = (req: Request, res: Response) => {
-   
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) return res.status(500).json({ msg: "user not found!" });
+
+  const isVerify = await user.validatePassword(req.body.password);
+
+  if (!isVerify) {
+    return res.status(500).json({ msg: "incorrect data!" });
+  } else {
+    const token: string = await jwt.sign(
+      { userId: user.id },
+      config.jwt.type.accsess.secret,
+      { expiresIn: config.jwt.type.accsess.expiresIn }
+    );
+
+    res.header("Authorization", `Bearer ${token}`).send(user);
+  }
+};
+ 
+
+
+export const profile = async (req: Request, res: Response) => {
+
+  const users = await User.find({});
+
+  if (!users) return res.status(404).json({ msg: "users not found !" });
+
+
+  res.status(200).json({users: users});
 };
