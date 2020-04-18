@@ -6,8 +6,9 @@ export interface IUser extends Document{
     username: string,
     email: string,
     password: string,
-    encryptPassword(password:string):Promise<string>
-    validatePassword(password: string):Promise<boolean>
+    encryptPassword(password:string):Promise<string>,
+    validatePassword(password: string):Promise<boolean>,
+    facebookId?:string
 }
 
 const userSchema = new Schema({
@@ -25,6 +26,9 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    facebookId: {
+        type: String
     }
 }, {
     timestamps: true

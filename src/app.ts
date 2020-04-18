@@ -1,20 +1,52 @@
-import express, {Application} from 'express'
-import authRoutes from './routes/auth'
-import morgan from 'morgan'
-import bodyParser from 'body-parser'
+import express, { Application } from "express";
+import cookieSession from "cookie-session";
+import cookieParser from 'cookie-parser'
+import passport from "passport";
+import path from "path";
+import authRoutes from "./routes/auth";
+import facebookAuth from './routes/fb.auth'
+import profileRoutes from "./routes/profile";
+import morgan from "morgan";
+import cors from "cors";
+import { config } from "./config";
 
-const app: Application = express ()
+const app: Application = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [config.cookieSession.secret],
+  })
+);
+
+app.use(morgan("dev"));
 
 
 
-app.use(morgan('dev'))
-// app.use(bodyParser.urlencoded({extended:false}))
-app.use(express.json())
+
+import './config/passport.startegys/fb.strategy'
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
-app.use('/api/auth', authRoutes)
+// app.use('/', express.static(path.join(__dirname, '../client')))
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../client', 'index.html'))
+// })
 
-app.set('port', 3000)
+
+app.use('/', facebookAuth)
+app.use('/auth', authRoutes)
+app.use('/profile', profileRoutes)
 
 
-export default app
+
+
+app.set("port", 5000)
+
+export default app;

@@ -1,4 +1,3 @@
-import {IncomingHttpHeaders} from 'http'
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import { config } from "../config";
@@ -25,7 +24,6 @@ export const signup = async (req: Request, res: Response) => {
 
 // SignIn
 export const signin = async (req: Request, res: Response) => {
-
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) return res.status(500).json({ msg: "user not found!" });
@@ -43,16 +41,4 @@ export const signin = async (req: Request, res: Response) => {
 
     res.header("Authorization", `Bearer ${token}`).send(user);
   }
-};
- 
-
-
-export const profile = async (req: Request, res: Response) => {
-
-  const users = await User.find({});
-
-  if (!users) return res.status(404).json({ msg: "users not found !" });
-
-
-  res.status(200).json({users: users});
 };
