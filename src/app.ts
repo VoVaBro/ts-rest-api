@@ -35,10 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// app.use('/', express.static(path.join(__dirname, '../client')))
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../client', 'index.html'))
-// })
+app.get('*', (req, res) => {
+  res.send('<h1>Hello!</h1>')
+})
 
 
 app.use('/facebook', facebookAuth)
