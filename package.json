@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node dist/index.js",
-    "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "dev": "nodemon",
-    "build": "tsc"
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
   },
   "repository": {
     "type": "git",
