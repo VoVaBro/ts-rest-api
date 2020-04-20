@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 
 export interface IUser extends Document{
     username: string,
-    email: string,
+    email?: string,
     password: string,
     encryptPassword(password:string):Promise<string>,
     validatePassword(password: string):Promise<boolean>,
@@ -20,15 +20,16 @@ const userSchema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: true,
+        required: false,
         lowercase: true
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     facebookId: {
-        type: String
+        type: String,
+        required: false
     }
 }, {
     timestamps: true

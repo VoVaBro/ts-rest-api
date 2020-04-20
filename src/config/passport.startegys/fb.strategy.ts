@@ -3,6 +3,7 @@ import FacebookStrategy from 'passport-facebook'
 import {config} from '../../config'
 import User, {IUser} from '../../models/user'
 
+import chalk from 'chalk'
 
 
 passport.serializeUser((user: IUser, done) => {
@@ -10,45 +11,37 @@ passport.serializeUser((user: IUser, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    // User.findById(id).then((user) => {
-        done(null, id);
-    // });
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
 });
 
-
-// passport.use(
-//     new FaceBookAuthStartegy.Strategy({
-//         clientID: config.passportConfig.clientID,
-//         clientSecret: config.passportConfig.clientSecret,
-//         callbackURL: config.passportConfig.callbackURL
-
-//     }, (accessToken, refreshToken, profile, done) => {
-        
-//         User.findOne({facebookId: profile.id}).then((currentUser) => {
-//             if(currentUser){
-//                 console.log('user is: ', currentUser);
-//                 done(null, currentUser);
-//             } else {
-//                 new User({
-//                     facebookId: profile.id,
-//                     username: profile.displayName,
-//                     thumbnail: profile._json.image.url
-//                 }).save().then((newUser) => {
-//                     console.log('created new user: ', newUser);
-//                     done(null, newUser);
-//                 });
-//             }
-//         });
-//     })
-// );
 
 passport.use(new FacebookStrategy.Strategy({
     clientID: config.passportConfig.clientID,
     clientSecret: config.passportConfig.clientSecret,
-    callbackURL: "http://localhost:5000/facebook/callback",
-    profileFields: ['id', 'displayName', 'photos', 'email'] 
+    callbackURL: '/facebook/callback',
+    profileFields: ['id', 'displayName', 'photos', 'email', 'name'] 
  },
-  (accessToken, refreshToken, profile, cb) => {
-   console.log(accessToken, refreshToken, profile, cb)
+  (accessToken, refreshToken, profile, done) => {
+
+    User.findOne({facebookId: profile.id})
+    .then(currentUser => {
+        if (currentUser){
+            console.log(chalk.green(JSON.stringify(currentUser)))
+        } else {
+            new User ({
+                facebookId: profile.id,
+                username: profile.name?.givenName
+            })
+            .save()
+            .then (newUser => {
+                console.log(chalk.red(JSON.stringify(newUser)))
+                 done(null, newUser)
+            })
+        }
+    })
   }
 ));
+
+

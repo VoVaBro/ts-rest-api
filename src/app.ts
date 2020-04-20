@@ -2,7 +2,6 @@ import express, { Application } from "express";
 import cookieSession from "cookie-session";
 import cookieParser from 'cookie-parser'
 import passport from "passport";
-import path from "path";
 import authRoutes from "./routes/auth";
 import facebookAuth from './routes/fb.auth'
 import profileRoutes from "./routes/profile";
@@ -15,6 +14,7 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
 
 app.use(
   cookieSession({

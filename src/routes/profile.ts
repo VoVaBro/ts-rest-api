@@ -7,7 +7,7 @@ const router: Router = Router()
 
 
 
-router.get('/profile', isAuth, profile)
+router.get('/', isAuth, profile)
 
 
 export default router
