@@ -3,10 +3,10 @@ import passport from 'passport'
 const router: Router = Router();
 
 
-router.get("/facebook", passport.authenticate("facebook"));
+router.get("/", passport.authenticate("facebook"));
 
 router.get(
-  "/facebook/callback",
+  "/callback",
   passport.authenticate("facebook"),
   (req, res)  => {
     res.redirect("/");

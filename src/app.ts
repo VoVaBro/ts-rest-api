@@ -5,6 +5,7 @@ import passport from "passport";
 import authRoutes from "./routes/auth";
 import facebookAuth from './routes/fb.auth'
 import profileRoutes from "./routes/profile";
+import wodsRoutes from './routes/wods'
 import morgan from "morgan";
 import cors from "cors";
 import { config } from "./config";
@@ -40,9 +41,10 @@ app.use(passport.session());
 // })
 
 
-app.use('/', facebookAuth)
+app.use('/facebook', facebookAuth)
 app.use('/auth', authRoutes)
 app.use('/profile', profileRoutes)
+app.use('/user/wods', wodsRoutes)
 
 
 

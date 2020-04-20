@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, {VerifyOptions} from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { config } from "../config";
+
 
 
 
