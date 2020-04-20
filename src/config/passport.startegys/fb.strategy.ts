@@ -37,7 +37,7 @@ passport.use(new FacebookStrategy.Strategy({
             .save()
             .then (newUser => {
                 console.log(chalk.red(JSON.stringify(newUser)))
-                 done(null, newUser)
+                 done(null, newUser);
             })
         }
     })
