@@ -8,7 +8,6 @@
     "watch": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "dev": "nodemon"
 
-  
   },
   "repository": {
     "type": "git",
