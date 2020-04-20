@@ -106,4 +106,4 @@ dist
 node_modules
 dist/
 test.rest
-src/config/.index.ts
+src/config/index.ts
