@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { validationResult, ValidationError } from "express-validator";
 import User, { IUser } from "../models/user";
 import { config } from "../config";
 
@@ -6,6 +7,15 @@ import jwt from "jsonwebtoken";
 
 //SignUp
 export const signup = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+      message: "Некорректный данные при регистрации",
+    });
+  }
+
   const user = await User.findOne({ email: req.body.email });
 
   if (user) return res.status(500).json({ msg: "user exist!" });
@@ -24,6 +34,15 @@ export const signup = async (req: Request, res: Response) => {
 
 // SignIn
 export const signin = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array(),
+      message: "Некорректный данные при входе в систему",
+    });
+  }
+
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) return res.status(500).json({ msg: "user not found!" });

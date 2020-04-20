@@ -65,7 +65,6 @@ export const editWod = async (req: Request, res: Response) => {
         trainingTime: req.body.trainingTime,
       }
     );
-
     return res.status(200).json({ msg: "Wod update!" });
   }
 };
