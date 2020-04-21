@@ -35,9 +35,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// app.get('*', (req, res) => {
-//   res.send('<h1>Hello!</h1>')
-// })
+app.use('*', (req, res) => {
+  res.send('<h1>Hello!</h1>')
+})
 
 
 app.use('/facebook', facebookAuth)
