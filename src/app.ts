@@ -35,8 +35,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('*', (req, res) => {
-  res.send('<h1>Hello!</h1>')
+app.use('/', (req, res) => {
+  res.send('Hello!')
 })
 
 
@@ -46,6 +46,6 @@ app.use('/profile', profileRoutes)
 app.use('/user/wods', wodsRoutes)
 
 
-app.set('port', 5000)
+// app.set('port', 5000)
 
 export default app;

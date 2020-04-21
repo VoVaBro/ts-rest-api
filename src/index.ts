@@ -1,15 +1,14 @@
-import app from './app'
+import http from "http";
+import app from "./app";
 
+const server = http.createServer(app);
 
- import {db} from './database'
+import { db } from "./database";
 
+function main() {
+  db();
 
-
-function main () {
-
-    db()
-
-    app.listen(process.env.PORT || app.get('port'), () => console.log('server start'))
+  server.listen(process.env.PORT || 5000, () => console.log("server start"));
 }
- 
-main()
+
+main();
