@@ -34,7 +34,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello!')
 })
 

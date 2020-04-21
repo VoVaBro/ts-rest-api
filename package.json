@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "cross-env NODE_ENV=development concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "start": "cross-env NODE_ENV=production node dist/index.js"
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
