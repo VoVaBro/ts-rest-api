@@ -3,9 +3,7 @@ import app from "./app";
 
 const server = http.createServer(app);
 
-import { db } from "./database";
+import  "./database";
 
 
-  db();
-
-  server.listen(process.env.PORT || 5000, () => console.log("server start"));
+server.listen(process.env.PORT || 5000, () => console.log("server start"));

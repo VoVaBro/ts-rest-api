@@ -28,7 +28,6 @@ app.use(morgan("dev"));
 
 
 
-
 import './config/passport.startegys/fb.strategy'
 
 app.use(passport.initialize());
