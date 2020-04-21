@@ -20,5 +20,8 @@ export const config = {
     mongo_pass: "trainingathletix200420",
     cookieSession: { 
         secret: 'secret'
+    },
+    name:  {
+        name: "vova"
     }
 }
