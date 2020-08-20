@@ -32,7 +32,7 @@
     "@types/passport": "^1.0.3",
     "@types/passport-facebook": "^2.1.9",
     "autocannon": "^4.6.0",
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "chalk": "^4.0.0",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
